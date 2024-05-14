@@ -1,5 +1,4 @@
 import BigNumber from 'bignumber.js';
-import { set } from 'date-fns';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { AssetInfo, TAppDenom, TTokenInfo, tokenInfo } from 'src/constants';
 import { useWalletContext } from 'src/contexts/wallet-context/wallet-context';
@@ -28,7 +27,7 @@ const SwapContext = createContext({} as TSwapData);
 export default function SwapProvider({ children }: BaseContextProps) {
     const [fromToken, setFromToken] = useState<TTokenSwapInfo>({ name: 'ORAI', balance: BN(0), price: BN(1), amountInput: '0' });
     const [toToken, setToToken] = useState<TTokenSwapInfo>({ name: 'USDT', balance: BN(0), price: BN(1), amountInput: '0' });
-    const [buttonSwapDisabled, setButtonSwapDisabled] = useState(false);
+    const [buttonSwapDisabled, setButtonSwapDisabled] = useState(true);
     const { getUserBalance, getPrice, oraichain } = useWalletContext();
 
     async function getBalance(token: TAppDenom, type: 'token1' | 'token2') {

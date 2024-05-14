@@ -1,18 +1,15 @@
 import { ExpandMoreRounded } from '@mui/icons-material';
-import { Box, Button, Container } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { Box, Container } from '@mui/material';
 import ButtonSelectToken from 'src/components/ButtonSelectToken/ButtonSelectToken';
 import ButtonSwap from 'src/components/ButtonSwap/ButtonSwap';
 import InputCustom from 'src/components/InputCustom/InputCustom';
 import NavigationMenu from 'src/components/NavigationMenu/NavigationMenu';
-import { TAppDenom, tokenInfo } from 'src/constants';
-import { useWalletContext } from 'src/contexts/wallet-context/wallet-context';
 import { BN } from 'src/utils';
 import { useSwapContext } from './context/swap-context';
 import { formatNumber } from 'src/utils/format';
 
 export default function Swap() {
-    const { getBalance, fromToken, setFromToken, toToken, setToToken, buttonSwapDisabled, setButtonSwapDisabled } = useSwapContext();
+    const { fromToken, setFromToken, toToken, setToToken } = useSwapContext();
 
     const handleSwap = () => {
         const tempToken = { ...fromToken };
@@ -80,7 +77,7 @@ export default function Swap() {
                         subValue={`~$${formatNumber(toToken.price.times(toToken.amountInput), { fractionDigits: 6 })}`}
                     />
                 </Box>
-                <ButtonSwap disabled={buttonSwapDisabled} />
+                <ButtonSwap />
             </Box>
         </Container>
     );
