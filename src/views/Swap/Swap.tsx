@@ -9,6 +9,7 @@ import { TAppDenom, tokenInfo } from 'src/constants';
 import { useWalletContext } from 'src/contexts/wallet-context/wallet-context';
 import { BN } from 'src/utils';
 import { useSwapContext } from './context/swap-context';
+import { formatNumber } from 'src/utils/format';
 
 export default function Swap() {
     const { getBalance, fromToken, setFromToken, toToken, setToToken, buttonSwapDisabled, setButtonSwapDisabled } = useSwapContext();
@@ -29,7 +30,7 @@ export default function Swap() {
         });
 
         setToToken((prev) => {
-            return { ...prev, amountInput: BN(value).div(fromToken.price).times(toToken.price).toFixed(6) };
+            return { ...prev, amountInput: BN(value).times(fromToken.price).div(toToken.price).toFixed(6) };
         });
     };
 
@@ -39,7 +40,7 @@ export default function Swap() {
         });
 
         setFromToken((prev) => {
-            return { ...prev, amountInput: BN(value).times(fromToken.price).div(toToken.price).toFixed(6) };
+            return { ...prev, amountInput: BN(value).div(fromToken.price).times(toToken.price).toFixed(6) };
         });
     };
 
@@ -51,10 +52,9 @@ export default function Swap() {
                     <InputCustom
                         subTitle="You pay"
                         endElement={<ButtonSelectToken token={fromToken} />}
-                        // endElement={<></>}
                         value={fromToken.amountInput}
                         onChange={handleFromValueChange}
-                        subValue="~$0"
+                        subValue={`~$${formatNumber(fromToken.price.times(fromToken.amountInput), { fractionDigits: 6 })}`}
                     />
                     <Box
                         sx={{
@@ -64,7 +64,7 @@ export default function Swap() {
                             height: '40px',
                             border: '4px solid #f6fafe',
                             borderRadius: '12px',
-                            top: '43%',
+                            top: '42%',
                             zIndex: 2,
                             cursor: 'pointer',
                         }}
@@ -72,7 +72,13 @@ export default function Swap() {
                     >
                         <ExpandMoreRounded sx={{ fontSize: '32px' }} />
                     </Box>
-                    <InputCustom subTitle="You receive" endElement={<ButtonSelectToken token={toToken} />} value={toToken.amountInput} onChange={handleToValueChange} subValue="~$0" />
+                    <InputCustom
+                        subTitle="You receive"
+                        endElement={<ButtonSelectToken token={toToken} />}
+                        value={toToken.amountInput}
+                        onChange={handleToValueChange}
+                        subValue={`~$${formatNumber(toToken.price.times(toToken.amountInput), { fractionDigits: 6 })}`}
+                    />
                 </Box>
                 <ButtonSwap disabled={buttonSwapDisabled} />
             </Box>

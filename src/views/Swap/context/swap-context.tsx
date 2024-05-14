@@ -35,12 +35,12 @@ export default function SwapProvider({ children }: BaseContextProps) {
         const balance = await getUserBalance(tokenInfo[token].assetInfo);
         if (type === 'token1') {
             setFromToken((prev) => {
-                return { ...prev, balance };
+                return { ...prev, balance: balance.div(BN(10).pow(tokenInfo[token].decimal)) };
             });
         }
         if (type === 'token2') {
             setToToken((prev) => {
-                return { ...prev, balance };
+                return { ...prev, balance: balance.div(BN(10).pow(tokenInfo[token].decimal)) };
             });
         }
     }
@@ -60,10 +60,13 @@ export default function SwapProvider({ children }: BaseContextProps) {
 
     useEffect(() => {
         getBalance(fromToken.name, 'token1');
-        getBalance(toToken.name, 'token2');
         getTokenPrice(tokenInfo[fromToken.name].assetInfo, 'token1');
+    }, [fromToken.name, oraichain.address, oraichain.userClient]);
+
+    useEffect(() => {
+        getBalance(toToken.name, 'token2');
         getTokenPrice(tokenInfo[toToken.name].assetInfo, 'token2');
-    }, [fromToken, toToken, oraichain.address]);
+    }, [toToken.name, oraichain.address, oraichain.userClient]);
 
     return (
         <SwapContext.Provider

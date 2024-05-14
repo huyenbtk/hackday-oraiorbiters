@@ -223,7 +223,7 @@ export function WalletProvider({ children }: BaseContextProps) {
                         quote: assetToken,
                     },
                 });
-                // console.log(price);
+                // console.log(price.rate);
                 return BN(price.rate);
             }
         } catch (err) {
