@@ -223,19 +223,12 @@ export function WalletProvider({ children }: BaseContextProps) {
                         quote: assetToken,
                     },
                 });
-                // console.log(price.rate);
                 return BN(price.rate);
             }
         } catch (err) {
             console.log(err);
         }
         return BN(1);
-        // return oraichain.client?.queryContractSmart(contractAddress.ORACLE, {
-        //     price: {
-        //         base: { token: { contract_addr: contractAddress.USDT } },
-        //         quote: assetToken,
-        //     },
-        // });
     }
 
     // TODO: function for init web app load =====================================================================
