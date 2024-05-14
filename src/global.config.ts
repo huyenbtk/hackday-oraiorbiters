@@ -70,7 +70,9 @@ export interface BaseContextProps {
     children: ReactNode;
 }
 
-export type TNet = 'mainnet' | 'testnet';
+// export type TNet = 'mainnet' | 'testnet';
+export type TNet = 'mainnet';
+// export type TNet = 'testnet';
 
 export type TStatusFetchData = 'init' | 'success' | 'failure' | 'updating' | 'fetching';
 

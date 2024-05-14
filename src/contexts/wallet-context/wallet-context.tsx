@@ -32,7 +32,7 @@ export const walletSupportedInApp: WalletConnected[] = [WalletConnected.Keplr, W
 
 export function WalletProvider({ children }: BaseContextProps) {
     const [walletConnected, _setWalletConnected] = useState<WalletConnected>(WalletConnected.Keplr);
-    const oraichain = useConnectChain({ chainInfo: chainInfo.Oraichain });
+    const oraichain = useConnectChain({ chainInfo: chainInfo.Oraichain.mainnet });
     const [isConnecting, setIsConnecting] = useState<boolean>(true);
     const [modal, setModal] = useState<TDataModalSelectWallet>({ open: false, chain: Chainconnected.Oraichain });
 
@@ -154,7 +154,7 @@ export function WalletProvider({ children }: BaseContextProps) {
     async function queryMulti(queryList: TInputQueryContract[]): Promise<{ data: any; success: boolean }[]> {
         if (oraichain.client) {
             try {
-                const res = await oraichain.client.queryContractSmart(contractAddress.MULTICALL, {
+                const res = await oraichain.client.queryContractSmart(contractAddress.mainnet.MULTICALL, {
                     aggregate: {
                         queries: queryList,
                     },
@@ -175,7 +175,7 @@ export function WalletProvider({ children }: BaseContextProps) {
     async function userQueryMulti(queryList: TInputQueryContract[]): Promise<{ data: any; success: boolean }[]> {
         if (oraichain.userClient) {
             try {
-                const res = await oraichain.userClient.queryContractSmart(contractAddress.MULTICALL, {
+                const res = await oraichain.userClient.queryContractSmart(contractAddress.mainnet.MULTICALL, {
                     aggregate: {
                         queries: queryList,
                     },
@@ -217,9 +217,9 @@ export function WalletProvider({ children }: BaseContextProps) {
     async function getPrice(assetToken: AssetInfo) {
         try {
             if (oraichain.address && oraichain.userClient) {
-                const price = await oraichain.userClient.queryContractSmart(contractAddress.ORACLE, {
+                const price = await oraichain.userClient.queryContractSmart(contractAddress.mainnet.ORACLE, {
                     price: {
-                        base: { token: { contract_addr: contractAddress.USDT } },
+                        base: { token: { contract_addr: contractAddress.mainnet.USDT } },
                         quote: assetToken,
                     },
                 });

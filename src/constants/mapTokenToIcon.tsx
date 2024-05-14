@@ -5,7 +5,5 @@ export const mapTokenToIcon: { [key in TAppDenom]: SvgComponent } = {
     ORAI: IconOrai,
     USDT: IconUSDT,
     USDC: IconUSDC,
-    // AIRI: IconAiri,
     ORAIX: IconOraiX,
-    // OSMO: IconOsmo,
 };

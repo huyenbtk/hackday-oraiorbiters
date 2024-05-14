@@ -1,6 +1,7 @@
 import { Help } from '@mui/icons-material';
 import { Box, SxProps, Typography } from '@mui/material';
-import { TAppDenom, mapTokenToIcon } from 'src/constants/mapTokenToIcon';
+import { TAppDenom } from 'src/constants';
+import { mapTokenToIcon } from 'src/constants/mapTokenToIcon';
 
 export default function IconAndName({ nameToken, sx, sxIcon, sxText }: { nameToken: string; sx?: SxProps; sxIcon?: SxProps; sxText?: SxProps }) {
     const IconToken = mapTokenToIcon[nameToken as TAppDenom] ?? Help;
