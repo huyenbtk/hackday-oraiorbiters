@@ -48,7 +48,7 @@ export default function Swap() {
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <InputCustom
                         subTitle="You pay"
-                        endElement={<ButtonSelectToken token={fromToken} />}
+                        endElement={<ButtonSelectToken token={fromToken} isFromToken={true} />}
                         value={fromToken.amountInput}
                         onChange={handleFromValueChange}
                         subValue={`~$${formatNumber(fromToken.price.times(fromToken.amountInput), { fractionDigits: 6 })}`}
@@ -71,7 +71,7 @@ export default function Swap() {
                     </Box>
                     <InputCustom
                         subTitle="You receive"
-                        endElement={<ButtonSelectToken token={toToken} />}
+                        endElement={<ButtonSelectToken token={toToken} isFromToken={false} />}
                         value={toToken.amountInput}
                         onChange={handleToValueChange}
                         subValue={`~$${formatNumber(toToken.price.times(toToken.amountInput), { fractionDigits: 6 })}`}

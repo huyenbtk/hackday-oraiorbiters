@@ -1,9 +1,32 @@
 import { Box, Button, Typography } from '@mui/material';
-import React from 'react';
-import { TAppDenom, mapTokenToIcon } from 'src/constants/mapTokenToIcon';
+import { TAppDenom } from 'src/constants';
+import { mapTokenToIcon } from 'src/constants/mapTokenToIcon';
 import { useModalContext } from 'src/contexts/modal-context/modal-context';
+import { useSwapContext } from 'src/views/Swap/context/swap-context';
 
-export default function ModalListToken({ onSetName, token }: { onSetName: (name: TAppDenom) => void; token: TAppDenom }) {
+export default function ModalListToken({ isFromToken }: { isFromToken: boolean }) {
+    const { fromToken, setFromToken, toToken, setToToken } = useSwapContext();
+    const onSetName = (name: TAppDenom) => {
+        if (isFromToken) {
+            if (name === toToken.name) {
+                setToToken((prev) => {
+                    return { ...prev, name: fromToken.name };
+                });
+            }
+            setFromToken((prev) => {
+                return { ...prev, name };
+            });
+        } else {
+            if (name === fromToken.name) {
+                setFromToken((prev) => {
+                    return { ...prev, name: toToken.name };
+                });
+            }
+            setToToken((prev) => {
+                return { ...prev, name };
+            });
+        }
+    };
     const { closeModal } = useModalContext();
     return Object.keys(mapTokenToIcon).map((key: string, index: number) => {
         const IconToken = mapTokenToIcon[key as TAppDenom];

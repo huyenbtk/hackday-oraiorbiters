@@ -1,8 +1,11 @@
-import { IconETH, SvgComponent, IconUSDT, IconBUSD, IconBSC, IconUSDC, IconBNB, IconDAI, IconOrai } from 'src/assets/icon';
-
-export type TAppDenom = 'USDT' | 'ORAI';
+import { IconETH, SvgComponent, IconUSDT, IconBUSD, IconBSC, IconUSDC, IconBNB, IconDAI, IconOrai, IconAiri, IconOraiX, IconOsmo } from 'src/assets/icon';
+import { TAppDenom } from '.';
 
 export const mapTokenToIcon: { [key in TAppDenom]: SvgComponent } = {
     ORAI: IconOrai,
     USDT: IconUSDT,
+    USDC: IconUSDC,
+    // AIRI: IconAiri,
+    ORAIX: IconOraiX,
+    // OSMO: IconOsmo,
 };
