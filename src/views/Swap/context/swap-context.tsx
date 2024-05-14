@@ -17,12 +17,6 @@ export type TSwapData = {
     setButtonSwapDisabled(disabled: boolean): void;
 };
 
-// export const SwapSelection: { [k in TAppDenom]: { name: string; token: TTokenInfo; canChangeTo: TAppDenom[] } } = {
-//     USDT: { name: 'USDT', token: tokenInfo.USDT, canChangeTo: [] },
-//     ORAI: { name: 'ORAI', token: tokenInfo.ORAI, canChangeTo: [] },
-//     ORAIX: { name: 'ORAIX', token: tokenInfo.ORAIX, canChangeTo: [] },
-// };
-
 const SwapContext = createContext({} as TSwapData);
 export default function SwapProvider({ children }: BaseContextProps) {
     const [fromToken, setFromToken] = useState<TTokenSwapInfo>({ name: 'ORAI', balance: BN(0), price: BN(1), amountInput: '0' });
